@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Article - ShopStyle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .gallery-item {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item:hover {
+        transform: scale(1.05);
+      }
+
+      .gallery-item.active {
+        box-shadow: 0 0 0 3px #a855f7;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .section-divider {
+        border-top: 2px solid #e5e7eb;
+      }
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideDownSearch {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+          max-height: 0;
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          max-height: 100px;
+        }
+      }
+
+      @keyframes slideUpSearch {
+        from {
+          opacity: 1;
+          transform: translateY(0);
+          max-height: 100px;
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-10px);
+          max-height: 0;
+        }
+      }
+
+      @keyframes slideMobileMenuDown {
+        from {
+          opacity: 0;
+          max-height: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          max-height: 500px;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideMobileMenuUp {
+        from {
+          opacity: 1;
+          max-height: 500px;
+          transform: translateY(0);
+        }
+        to {
+          opacity: 0;
+          max-height: 0;
+          transform: translateY(-20px);
+        }
+      }
+
+      .slide-down {
+        animation: slideDown 0.4s ease-out;
+      }
+
+      .search-enter {
+        animation: slideDownSearch 0.3s ease-out forwards;
+      }
+
+      .search-exit {
+        animation: slideUpSearch 0.3s ease-out forwards;
+      }
+
+      .mobile-menu-open {
+        animation: slideMobileMenuDown 0.4s ease-out forwards;
+      }
+
+      .mobile-menu-close {
+        animation: slideMobileMenuUp 0.3s ease-out forwards;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      /* Styles pour les listes */
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      nav li {
+        list-style: none;
+      }
+
+      /* Menu principal */
+      .main-menu {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .main-menu > li {
+        position: relative;
+      }
+
+      .main-menu > li > a {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.75rem 1rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      .main-menu > li > a:hover {
+        color: #a855f7;
+        background-color: #f3e8ff;
+      }
+
+      .main-menu > li > a svg {
+        transition: transform 0.3s;
+      }
+
+      .main-menu > li:hover > a svg {
+        transform: rotate(180deg);
+      }
+
+      /* Sous-menu niveau 1 */
+      .submenu-1 {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        margin-top: 0.5rem;
+        min-width: 200px;
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        z-index: 40;
+      }
+
+      .main-menu > li:hover .submenu-1 {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .submenu-1 > li {
+        position: relative;
+      }
+
+      .submenu-1 > li > a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1.25rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .submenu-1 > li > a:hover {
+        color: #a855f7;
+        background-color: #faf5ff;
+      }
+
+      .submenu-1 > li:first-child > a {
+        border-radius: 0.75rem 0.75rem 0 0;
+      }
+
+      .submenu-1 > li:last-child > a {
+        border-radius: 0 0 0.75rem 0.75rem;
+      }
+
+      /* Sous-menu niveau 2 */
+      .submenu-2 {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        margin-left: 0.5rem;
+        min-width: 180px;
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+      }
+
+      .submenu-1 > li:hover .submenu-2 {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .submenu-2 > li > a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .submenu-2 > li > a:hover {
+        color: #a855f7;
+        background-color: #faf5ff;
+      }
+
+      .submenu-2 > li:first-child > a {
+        border-radius: 0.75rem 0.75rem 0 0;
+      }
+
+      .submenu-2 > li:last-child > a {
+        border-radius: 0 0 0.75rem 0.75rem;
+      }
+
+      /* Mobile menu */
+      .mobile-menu-item {
+        padding: 0;
+        margin: 0;
+      }
+
+      .mobile-menu-item > a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.75rem 1rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .mobile-menu-item > a:hover {
+        color: #a855f7;
+        background-color: #f3e8ff;
+      }
+
+      .mobile-submenu {
+        display: none;
+        padding-left: 1.5rem;
+        background-color: #faf5ff;
+      }
+
+      .mobile-menu-item.active .mobile-submenu {
+        display: block;
+      }
+
+      .mobile-submenu > li > a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.5rem 1rem;
+        color: #6b7280;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .mobile-submenu > li > a:hover {
+        color: #a855f7;
+        background-color: #f3e8ff;
+      }
+
+      .mobile-submenu-2 {
+        display: none;
+        padding-left: 1.5rem;
+        background-color: white;
+      }
+
+      .mobile-submenu > li.active .mobile-submenu-2 {
+        display: block;
+      }
+
+      .mobile-submenu-2 > li > a {
+        display: block;
+        padding: 0.4rem 1rem;
+        color: #9ca3af;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .mobile-submenu-2 > li > a:hover {
+        color: #a855f7;
+        background-color: #faf5ff;
+      }
+
+      .toggle-submenu {
+        cursor: pointer;
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .toggle-submenu svg {
+        transition: transform 0.3s;
+      }
+
+      .mobile-menu-item.active > a .toggle-submenu svg,
+      .mobile-submenu > li.active > .toggle-submenu svg {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation simplifiée -->
+    <nav
+      role="navigation"
+      aria-label="Navigation principale"
+      class="bg-white shadow-lg sticky top-0 z-50 slide-down"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <!-- Left: Logo -->
+          <div class="flex-shrink-0">
+            <a href="./index.html" class="flex items-center">
+              <h1
+                class="text-2xl font-bold gradient-bg bg-clip-text text-transparent select-none"
+              >
+                ShopStyle
+              </h1>
+            </a>
+          </div>
+
+          <!-- Center: Menu desktop -->
+          <div class="hidden lg:flex flex-1 justify-center px-8">
+            <ul class="main-menu">
+              <!-- Accueil -->
+              <li>
+                <a href="#">Accueil</a>
+              </li>
+
+              <!-- Produits avec sous-menus -->
+              <li>
+                <a href="#">
+                  Produits
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </a>
+                <ul class="submenu-1">
+                  <li>
+                    <a href="#">
+                      Hommes
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </a>
+                    <ul class="submenu-2">
+                      <li><a href="#">Vêtements</a></li>
+                      <li><a href="#">Manteau</a></li>
+                      <li><a href="#">Chaussures</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Femmes
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </a>
+                    <ul class="submenu-2">
+                      <li><a href="#">Robes</a></li>
+                      <li><a href="#">Chemises</a></li>
+                      <li><a href="#">Pantalons</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Enfants
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </a>
+                    <ul class="submenu-2">
+                      <li><a href="#">Garçons</a></li>
+                      <li><a href="#">Filles</a></li>
+                      <li><a href="#">Bébés</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Catégories -->
+              <li>
+                <a href="#">
+                  Catégories
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </a>
+                <ul class="submenu-1">
+                  <li><a href="#">Électronique</a></li>
+                  <li><a href="#">Accessoires</a></li>
+                  <li><a href="#">Maison</a></li>
+                  <li><a href="#">Sports</a></li>
+                </ul>
+              </li>
+
+              <!-- Contact -->
+              <li>
+                <a href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right: Actions -->
+          <div class="flex items-center space-x-4">
+            <!-- Recherche -->
+            <button
+              id="search-btn"
+              aria-label="Ouvrir la recherche"
+              class="text-gray-700 hover:text-purple-600 transition duration-300"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- Panier -->
+            <button
+              class="relative text-gray-700 hover:text-purple-600 transition duration-300"
+              aria-label="Voir le panier"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                ></path>
+              </svg>
+              <span
+                class="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                >3</span
+              >
+            </button>
+
+            <!-- Mobile menu button -->
+            <button
+              id="mobile-menu-btn"
+              aria-label="Ouvrir le menu mobile"
+              class="lg:hidden text-gray-700 hover:text-purple-600"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div id="search-bar" class="hidden overflow-hidden">
+          <div class="py-4">
+            <div class="relative">
+              <input
+                type="text"
+                id="search-input"
+                placeholder="Rechercher un produit..."
+                class="w-full px-4 py-3 pr-12 rounded-lg border-2 border-purple-200 focus:border-purple-600 focus:outline-none transition duration-300"
+              />
+              <button
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-purple-600"
+                aria-label="Lancer la recherche"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div
+          id="mobile-menu"
+          class="hidden lg:hidden pb-4 max-h-96 overflow-y-auto"
+        >
+          <ul class="list-none p-0 m-0">
+            <!-- Accueil -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-start px-4 py-3 text-gray-700 no-underline font-semibold transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 rounded-md"
+              >
+                Accueil
+              </a>
+            </li>
+
+            <!-- Produits mobile -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-between px-4 py-3 text-gray-700 font-semibold transition-all duration-300 rounded-md hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+              >
+                Produits
+                <svg
+                  class="w-4 h-4 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </a>
+              <ul class="mobile-submenu hidden pl-6 bg-purple-50">
+                <!-- Hommes -->
+                <li class="mobile-menu-item">
+                  <a
+                    href="#"
+                    class="flex items-center justify-between px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+                  >
+                    Hommes
+                    <svg
+                      class="w-3 h-3 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </a>
+                  <ul class="mobile-submenu-2 hidden pl-6 bg-white">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Vêtements</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Manteau</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Chaussures</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Femmes -->
+                <li class="mobile-menu-item">
+                  <a
+                    href="#"
+                    class="flex items-center justify-between px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+                  >
+                    Femmes
+                    <svg
+                      class="w-3 h-3 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </a>
+                  <ul class="mobile-submenu-2 hidden pl-6 bg-white">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Robes</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Chemises</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Pantalons</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Enfants -->
+                <li class="mobile-menu-item">
+                  <a
+                    href="#"
+                    class="flex items-center justify-between px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+                  >
+                    Enfants
+                    <svg
+                      class="w-3 h-3 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </a>
+                  <ul class="mobile-submenu-2 hidden pl-6 bg-white">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Garçons</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Filles</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Bébés</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Catégories mobile -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-between px-4 py-3 text-gray-700 font-semibold transition-all duration-300 rounded-md hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+              >
+                Catégories
+                <svg
+                  class="w-4 h-4 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </a>
+              <ul class="mobile-submenu hidden pl-6 bg-purple-50">
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Électronique</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Accessoires</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Maison</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Sports</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- Contact -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-start px-4 py-3 text-gray-700 no-underline font-semibold transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 rounded-md"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- En-tête de l'article -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between mb-4">
+          <span
+            class="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold"
+          >
+            Accessoires
+          </span>
+          <div class="flex items-center gap-2 text-gray-600">
+            <span>⭐ 4.8 (324 avis)</span>
+          </div>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          Montre Élégante en Acier Inoxydable
+        </h1>
+        <p class="text-xl text-gray-600 mb-6">
+          Une montre intemporelle combinant élégance suisse et technologie
+          moderne pour une présentation raffinée à tout moment.
+        </p>
+        <div
+          class="flex flex-col md:flex-row gap-4 items-center justify-between"
+        >
+          <div class="flex items-baseline gap-3">
+            <span class="text-3xl font-bold text-purple-600">89,99 €</span>
+            <span class="text-xl text-gray-400 line-through">129,99 €</span>
+            <span class="text-lg font-semibold text-green-600">-31%</span>
+          </div>
+          <button
+            class="px-4 py-2 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition duration-300 shadow-lg"
+          >
+            Ajouter au panier
+          </button>
+        </div>
+      </div>
+
+      <!-- Galerie d'images principale -->
+      <div class="mb-12">
+        <div class="mb-4">
+          <img
+            id="mainImage"
+            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop"
+            alt="Image principale"
+            class="w-full h-96 object-cover rounded-xl shadow-lg fade-in"
+          />
+        </div>
+
+        <!-- Miniatures -->
+        <div class="grid grid-cols-4 gap-3 md:gap-4">
+          <img
+            class="gallery-item active h-24 w-full object-cover rounded-lg shadow-md"
+            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop"
+            alt="Vue 1"
+            data-full="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop"
+          />
+          <img
+            class="gallery-item h-24 w-full object-cover rounded-lg shadow-md"
+            src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=200&h=200&fit=crop"
+            alt="Vue 2"
+            data-full="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=200&h=200&fit=crop"
+          />
+          <img
+            class="gallery-item h-24 w-full object-cover rounded-lg shadow-md"
+            src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=200&h=200&fit=crop"
+            alt="Vue 3"
+            data-full="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=200&h=200&fit=crop"
+          />
+          <img
+            class="gallery-item h-24 w-full object-cover rounded-lg shadow-md"
+            src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=200&h=200&fit=crop"
+            alt="Vue 4"
+            data-full="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=200&h=200&fit=crop"
+          />
+        </div>
+      </div>
+
+      <!-- Section : Description et spécifications -->
+      <div class="section-divider py-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+          À Propos de cette Montre
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">
+              Caractéristiques Principales
+            </h3>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span
+                  ><strong>Boîtier :</strong> Acier inoxydable 316L
+                  hypoallergénique</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span
+                  ><strong>Mouvement :</strong> Quartz suisse précision ±15
+                  sec/mois</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span
+                  ><strong>Étanchéité :</strong> 100 mètres
+                  (aqua-résistant)</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span
+                  ><strong>Bracelet :</strong> Cuir noir d'exception avec boucle
+                  ardillon</span
+                >
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-purple-600 font-bold">✓</span>
+                <span><strong>Diamètre :</strong> 42 mm, épaisseur 10 mm</span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <img
+              src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=500&fit=crop"
+              alt="Détails"
+              class="w-full h-64 object-cover rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Section : Galerie avec contenu type blog -->
+      <div class="section-divider py-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+          Pourquoi Choisir Cette Montre ?
+        </h2>
+
+        <div class="space-y-8">
+          <!-- Bloc 1 -->
+          <div class="grid md:grid-cols-2 gap-6 items-center">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Design Intemporel
+              </h3>
+              <p class="text-gray-700 leading-relaxed">
+                Avec son cadran épuré et ses aiguilles élégantes, cette montre
+                transcende les tendances. Elle s'accorde parfaitement avec
+                n'importe quel style vestimentaire, du plus formel au plus
+                décontracté. Son design minimaliste en fait un accessoire
+                indispensable pour toute occasion.
+              </p>
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=500&fit=crop"
+              alt="Design"
+              class="w-full h-64 object-cover rounded-lg shadow-lg"
+            />
+          </div>
+
+          <!-- Bloc 2 -->
+          <div
+            class="grid md:grid-cols-2 gap-6 items-center md:flex-row-reverse"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=500&fit=crop"
+              alt="Technologie"
+              class="w-full h-64 object-cover rounded-lg shadow-lg md:order-2"
+            />
+            <div class="md:order-1">
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Technologie Fiable
+              </h3>
+              <p class="text-gray-700 leading-relaxed">
+                Équipée d'un mouvement quartz suisse réputé, cette montre offre
+                une précision exceptionnelle. Sa batterie longue durée (48 mois)
+                et sa construction robuste garantissent des années de
+                fonctionnement sans souci. C'est l'investissement parfait pour
+                les amateurs de montres de qualité.
+              </p>
+            </div>
+          </div>
+
+          <!-- Bloc 3 -->
+          <div class="grid md:grid-cols-2 gap-6 items-center">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                Confort et Qualité des Matériaux
+              </h3>
+              <p class="text-gray-700 leading-relaxed">
+                Le bracelet en cuir véritable est travaillé à la main par nos
+                artisans. L'acier inoxydable 316L, utilisé dans la joaillerie
+                haut de gamme, garantit une résistance optimale à la corrosion.
+                Chaque détail a été pensé pour offrir le meilleur confort au
+                poignet.
+              </p>
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=500&fit=crop"
+              alt="Matériaux"
+              class="w-full h-64 object-cover rounded-lg shadow-lg"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Section : Avis clients -->
+      <div class="section-divider py-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Avis des Clients</h2>
+
+        <div class="space-y-6">
+          <!-- Avis 1 -->
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-600"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-semibold text-gray-800">Marie Dupont</h4>
+              <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              Vérifié - Achat le 15 octobre 2024
+            </p>
+            <p class="text-gray-700">
+              Une montre superbe, exactement comme décrit. Le design est élégant
+              et intemporel. Très bonne qualité pour le prix. Je la recommande
+              vivement !
+            </p>
+          </div>
+
+          <!-- Avis 2 -->
+          <div
+            class="bg-white p-6 rounded-lg shadow-md border-l-4 border-purple-600"
+          >
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-semibold text-gray-800">Jean Martin</h4>
+              <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+            </div>
+            <p class="text-sm text-gray-600 mb-3">
+              Vérifié - Achat le 22 septembre 2024
+            </p>
+            <p class="text-gray-700">
+              Excellent rapport qualité-prix. Livrée dans un bel emballage. Le
+              bracelet est confortable et la précision impeccable après 3
+              semaines d'utilisation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bouton d'achat final -->
+      <div class="flex gap-4 justify-center py-8">
+        <button
+          class="px-5 py-2 bg-purple-600 text-white rounded-full font-semibold text-lg hover:bg-purple-700 transition duration-300 shadow-lg"
+        >
+          Ajouter au panier
+        </button>
+        <button
+          class="px-5 py-2 border-2 border-purple-600 text-purple-600 rounded-full font-semibold text-lg hover:bg-purple-50 transition duration-300"
+        >
+          ♡ Ajouter à la liste de souhaits
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-gray-300">
+          &copy; 2024 ShopStyle. Tous droits réservés.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Galerie interactive
+      const galleryItems = document.querySelectorAll(".gallery-item");
+      const mainImage = document.getElementById("mainImage");
+
+      galleryItems.forEach((item) => {
+        item.addEventListener("click", () => {
+          // Retirer la classe active de tous les éléments
+          galleryItems.forEach((el) =>
+            el.classList.remove("active", "ring", "ring-purple-600")
+          );
+
+          // Ajouter la classe active à l'élément cliqué
+          item.classList.add("active", "ring", "ring-purple-600");
+
+          // Changer l'image principale avec fade
+          mainImage.classList.remove("fade-in");
+          setTimeout(() => {
+            mainImage.src = item.dataset.full;
+            mainImage.classList.add("fade-in");
+          }, 150);
+        });
+      });
+    </script>
+  </body>
+</html>
