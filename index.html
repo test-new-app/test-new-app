@@ -3,20 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Boutique en ligne</title>
+    <title>Boutique en ligne - Navbar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
       @keyframes slideDown {
         from {
           opacity: 0;
@@ -25,32 +14,6 @@
         to {
           opacity: 1;
           transform: translateY(0);
-        }
-      }
-
-      @keyframes slideDownMenu {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-          max-height: 0;
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-          max-height: 500px;
-        }
-      }
-
-      @keyframes slideUpMenu {
-        from {
-          opacity: 1;
-          transform: translateY(0);
-          max-height: 500px;
-        }
-        to {
-          opacity: 0;
-          transform: translateY(-20px);
-          max-height: 0;
         }
       }
 
@@ -80,42 +43,34 @@
         }
       }
 
-      @keyframes fadeInSubmenu {
+      @keyframes slideMobileMenuDown {
         from {
           opacity: 0;
-          transform: translateY(-10px);
+          max-height: 0;
+          transform: translateY(-20px);
         }
         to {
           opacity: 1;
+          max-height: 500px;
           transform: translateY(0);
         }
       }
 
-      @keyframes slideInRight {
+      @keyframes slideMobileMenuUp {
         from {
-          opacity: 0;
-          transform: translateX(-10px);
+          opacity: 1;
+          max-height: 500px;
+          transform: translateY(0);
         }
         to {
-          opacity: 1;
-          transform: translateX(0);
+          opacity: 0;
+          max-height: 0;
+          transform: translateY(-20px);
         }
-      }
-
-      .fade-in {
-        animation: fadeIn 0.6s ease-out forwards;
       }
 
       .slide-down {
         animation: slideDown 0.4s ease-out;
-      }
-
-      .menu-enter {
-        animation: slideDownMenu 0.4s ease-out forwards;
-      }
-
-      .menu-exit {
-        animation: slideUpMenu 0.3s ease-out forwards;
       }
 
       .search-enter {
@@ -126,592 +81,407 @@
         animation: slideUpSearch 0.3s ease-out forwards;
       }
 
-      .product-card {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      .mobile-menu-open {
+        animation: slideMobileMenuDown 0.4s ease-out forwards;
       }
 
-      .product-card:hover {
-        transform: translateY(-8px);
-      }
-
-      .product-img {
-        transition: transform 0.4s ease;
-      }
-
-      .product-card:hover .product-img {
-        transform: scale(1.08);
-      }
-
-      .btn-hover {
-        transition: all 0.3s ease;
-      }
-
-      .btn-hover:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+      .mobile-menu-close {
+        animation: slideMobileMenuUp 0.3s ease-out forwards;
       }
 
       .gradient-bg {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       }
 
-      .card-delay-1 {
-        animation-delay: 0.1s;
-      }
-      .card-delay-2 {
-        animation-delay: 0.2s;
-      }
-      .card-delay-3 {
-        animation-delay: 0.3s;
-      }
-      .card-delay-4 {
-        animation-delay: 0.4s;
-      }
-      .card-delay-5 {
-        animation-delay: 0.5s;
-      }
-      .card-delay-6 {
-        animation-delay: 0.6s;
+      /* Styles pour les listes */
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
       }
 
-      /* Styles pour les menus en cascade */
-      .submenu-item {
+      nav li {
+        list-style: none;
+      }
+
+      /* Menu principal */
+      .main-menu {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .main-menu > li {
         position: relative;
       }
 
-      .submenu-level-2 {
-        animation: slideInRight 0.3s ease-out forwards;
+      .main-menu > li > a {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.75rem 1rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s;
+      }
+
+      .main-menu > li > a:hover {
+        color: #a855f7;
+        background-color: #f3e8ff;
+      }
+
+      .main-menu > li > a svg {
+        transition: transform 0.3s;
+      }
+
+      .main-menu > li:hover > a svg {
+        transform: rotate(180deg);
+      }
+
+      /* Sous-menu niveau 1 */
+      .submenu-1 {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        margin-top: 0.5rem;
+        min-width: 200px;
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        z-index: 40;
+      }
+
+      .main-menu > li:hover .submenu-1 {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .submenu-1 > li {
+        position: relative;
+      }
+
+      .submenu-1 > li > a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1.25rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .submenu-1 > li > a:hover {
+        color: #a855f7;
+        background-color: #faf5ff;
+      }
+
+      .submenu-1 > li:first-child > a {
+        border-radius: 0.75rem 0.75rem 0 0;
+      }
+
+      .submenu-1 > li:last-child > a {
+        border-radius: 0 0 0.75rem 0.75rem;
+      }
+
+      /* Sous-menu niveau 2 */
+      .submenu-2 {
+        position: absolute;
+        left: 100%;
+        top: 0;
+        margin-left: 0.5rem;
+        min-width: 180px;
+        background-color: white;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+      }
+
+      .submenu-1 > li:hover .submenu-2 {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .submenu-2 > li > a {
+        display: block;
+        padding: 0.75rem 1.25rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .submenu-2 > li > a:hover {
+        color: #a855f7;
+        background-color: #faf5ff;
+      }
+
+      .submenu-2 > li:first-child > a {
+        border-radius: 0.75rem 0.75rem 0 0;
+      }
+
+      .submenu-2 > li:last-child > a {
+        border-radius: 0 0 0.75rem 0.75rem;
+      }
+
+      /* Mobile menu */
+      .mobile-menu-item {
+        padding: 0;
+        margin: 0;
+      }
+
+      .mobile-menu-item > a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.75rem 1rem;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .mobile-menu-item > a:hover {
+        color: #a855f7;
+        background-color: #f3e8ff;
+      }
+
+      .mobile-submenu {
+        display: none;
+        padding-left: 1.5rem;
+        background-color: #faf5ff;
+      }
+
+      .mobile-menu-item.active .mobile-submenu {
+        display: block;
+      }
+
+      .mobile-submenu > li > a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.5rem 1rem;
+        color: #6b7280;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .mobile-submenu > li > a:hover {
+        color: #a855f7;
+        background-color: #f3e8ff;
+      }
+
+      .mobile-submenu-2 {
+        display: none;
+        padding-left: 1.5rem;
+        background-color: white;
+      }
+
+      .mobile-submenu > li.active .mobile-submenu-2 {
+        display: block;
+      }
+
+      .mobile-submenu-2 > li > a {
+        display: block;
+        padding: 0.4rem 1rem;
+        color: #9ca3af;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 0.85rem;
+        transition: all 0.3s;
+      }
+
+      .mobile-submenu-2 > li > a:hover {
+        color: #a855f7;
+        background-color: #faf5ff;
+      }
+
+      .toggle-submenu {
+        cursor: pointer;
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .toggle-submenu svg {
+        transition: transform 0.3s;
+      }
+
+      .mobile-menu-item.active > a .toggle-submenu svg,
+      .mobile-submenu > li.active > .toggle-submenu svg {
+        transform: rotate(180deg);
       }
     </style>
   </head>
   <body class="bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50 slide-down">
+    <nav
+      role="navigation"
+      aria-label="Navigation principale"
+      class="bg-white shadow-lg sticky top-0 z-50 slide-down"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <div class="flex items-center">
-            <h1
-              class="text-2xl font-bold gradient-bg bg-clip-text text-transparent"
-            >
-              ShopStyle
-            </h1>
-          </div>
-
-          <!-- Menu Desktop -->
-          <div class="hidden md:flex space-x-1">
-            <!-- Accueil -->
-            <a
-              href="#"
-              class="px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition duration-300 font-medium"
-            >
-              Accueil
-            </a>
-
-            <!-- Produits avec sous-menu -->
-            <div class="relative group">
-              <button
-                class="px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition duration-300 font-medium flex items-center"
+        <div class="flex items-center justify-between h-16">
+          <!-- Left: Logo -->
+          <div class="flex-shrink-0">
+            <a href="./index.html" class="flex items-center">
+              <h1
+                class="text-2xl font-bold gradient-bg bg-clip-text text-transparent select-none"
               >
-                Produits
-                <svg
-                  class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180 duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
-              </button>
-
-              <!-- Niveau 1 -->
-              <div
-                class="absolute left-0 top-full mt-2 w-56 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
-              >
-                <!-- Vêtements -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Vêtements
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        Collections Vêtements
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >T-shirts & Polos</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Chemises</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Pantalons & Jeans</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Robes & Jupes</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Vestes & Manteaux</a
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Accessoires -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Accessoires
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        Collections Accessoires
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Montres Classiques</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Montres Sport</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Lunettes de Soleil</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Bijoux</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Sacs & Maroquinerie</a
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Chaussures -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Chaussures
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        Collections Chaussures
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Sneakers Lifestyle</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Sneakers Sport</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Bottes & Bottines</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Sandales</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Chaussures de Ville</a
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Électronique -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Électronique
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        High-Tech
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Casques Audio</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Écouteurs Sans-Fil</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Appareils Photo</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Smartphones</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Catégories -->
-            <div class="relative group">
-              <button
-                class="px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition duration-300 font-medium flex items-center"
-              >
-                Catégories
-                <svg
-                  class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180 duration-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
-                </svg>
-              </button>
-
-              <!-- Niveau 1 -->
-              <div
-                class="absolute left-0 top-full mt-2 w-56 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"
-              >
-                <!-- Homme -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Homme
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        Mode Homme
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Nouveautés</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Tendances</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Sport & Fitness</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Bureau & Formel</a
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Femme -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Femme
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        Mode Femme
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Nouveautés</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Tendances</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Sport & Fitness</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Soirée & Élégance</a
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Enfant -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Enfant
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        Mode Enfant
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Garçons 3-12 ans</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Filles 3-12 ans</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Bébés 0-3 ans</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Ados 13-18 ans</a
-                      >
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Promotions -->
-                <div class="submenu-item group/item">
-                  <a
-                    href="#"
-                    class="block px-6 py-3 text-gray-700 hover:bg-purple-50 hover:text-purple-600 transition duration-300 font-medium flex items-center justify-between"
-                  >
-                    Promotions
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
-                      ></path>
-                    </svg>
-                  </a>
-                  <!-- Niveau 2 -->
-                  <div
-                    class="absolute left-full top-0 ml-2 w-64 bg-white shadow-xl rounded-xl opacity-0 invisible group-hover/item:opacity-100 group-hover/item:visible transition-all duration-300 submenu-level-2"
-                  >
-                    <div class="p-4">
-                      <h4 class="font-bold text-purple-600 mb-3 text-sm">
-                        Offres Spéciales
-                      </h4>
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Soldes -50%</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Outlet -70%</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Fin de Série</a
-                      >
-                      <a
-                        href="#"
-                        class="block px-3 py-2 text-sm text-gray-600 hover:bg-purple-50 hover:text-purple-600 rounded-lg transition duration-300"
-                        >Ventes Flash</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Contact -->
-            <a
-              href="#"
-              class="px-4 py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition duration-300 font-medium"
-            >
-              Contact
+                ShopStyle
+              </h1>
             </a>
           </div>
 
+          <!-- Center: Menu desktop -->
+          <div class="hidden lg:flex flex-1 justify-center px-8">
+            <ul class="main-menu">
+              <!-- Accueil -->
+              <li>
+                <a href="#">Accueil</a>
+              </li>
+
+              <!-- Produits avec sous-menus -->
+              <li>
+                <a href="#">
+                  Produits
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </a>
+                <ul class="submenu-1">
+                  <li>
+                    <a href="#">
+                      Hommes
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </a>
+                    <ul class="submenu-2">
+                      <li><a href="#">Vêtements</a></li>
+                      <li><a href="#">Manteau</a></li>
+                      <li><a href="#">Chaussures</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Femmes
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </a>
+                    <ul class="submenu-2">
+                      <li><a href="#">Robes</a></li>
+                      <li><a href="#">Chemises</a></li>
+                      <li><a href="#">Pantalons</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Enfants
+                      <svg
+                        class="w-3 h-3"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </a>
+                    <ul class="submenu-2">
+                      <li><a href="#">Garçons</a></li>
+                      <li><a href="#">Filles</a></li>
+                      <li><a href="#">Bébés</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Catégories -->
+              <li>
+                <a href="#">
+                  Catégories
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 9l-7 7-7-7"
+                    ></path>
+                  </svg>
+                </a>
+                <ul class="submenu-1">
+                  <li><a href="#">Électronique</a></li>
+                  <li><a href="#">Accessoires</a></li>
+                  <li><a href="#">Maison</a></li>
+                  <li><a href="#">Sports</a></li>
+                </ul>
+              </li>
+
+              <!-- Contact -->
+              <li>
+                <a href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right: Actions -->
           <div class="flex items-center space-x-4">
+            <!-- Recherche -->
             <button
               id="search-btn"
+              aria-label="Ouvrir la recherche"
               class="text-gray-700 hover:text-purple-600 transition duration-300"
             >
               <svg
@@ -728,8 +498,11 @@
                 ></path>
               </svg>
             </button>
+
+            <!-- Panier -->
             <button
               class="relative text-gray-700 hover:text-purple-600 transition duration-300"
+              aria-label="Voir le panier"
             >
               <svg
                 class="w-6 h-6"
@@ -751,7 +524,11 @@
             </button>
 
             <!-- Mobile menu button -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+            <button
+              id="mobile-menu-btn"
+              aria-label="Ouvrir le menu mobile"
+              class="lg:hidden text-gray-700 hover:text-purple-600"
+            >
               <svg
                 class="w-6 h-6"
                 fill="none"
@@ -781,6 +558,7 @@
               />
               <button
                 class="absolute right-3 top-1/2 -translate-y-1/2 text-purple-600"
+                aria-label="Lancer la recherche"
               >
                 <svg
                   class="w-6 h-6"
@@ -801,529 +579,672 @@
         </div>
 
         <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden pb-4 overflow-hidden">
-          <a
-            href="#"
-            class="block py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 px-4 rounded transition duration-300 font-medium text-center"
-            >Accueil</a
-          >
-          <a
-            href="#"
-            class="block py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 px-4 rounded transition duration-300 font-medium text-center"
-            >Produits</a
-          >
-          <a
-            href="#"
-            class="block py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 px-4 rounded transition duration-300 font-medium text-center"
-            >Catégories</a
-          >
-          <a
-            href="#"
-            class="block py-2 text-gray-700 hover:text-purple-600 hover:bg-purple-50 px-4 rounded transition duration-300 font-medium text-center"
-            >Contact</a
-          >
+        <div
+          id="mobile-menu"
+          class="hidden lg:hidden pb-4 max-h-96 overflow-y-auto"
+        >
+          <ul class="list-none p-0 m-0">
+            <!-- Accueil -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-start px-4 py-3 text-gray-700 no-underline font-semibold transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 rounded-md"
+              >
+                Accueil
+              </a>
+            </li>
+
+            <!-- Produits mobile -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-between px-4 py-3 text-gray-700 font-semibold transition-all duration-300 rounded-md hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+              >
+                Produits
+                <svg
+                  class="w-4 h-4 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </a>
+              <ul class="mobile-submenu hidden pl-6 bg-purple-50">
+                <!-- Hommes -->
+                <li class="mobile-menu-item">
+                  <a
+                    href="#"
+                    class="flex items-center justify-between px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+                  >
+                    Hommes
+                    <svg
+                      class="w-3 h-3 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </a>
+                  <ul class="mobile-submenu-2 hidden pl-6 bg-white">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Vêtements</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Manteau</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Chaussures</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Femmes -->
+                <li class="mobile-menu-item">
+                  <a
+                    href="#"
+                    class="flex items-center justify-between px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+                  >
+                    Femmes
+                    <svg
+                      class="w-3 h-3 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </a>
+                  <ul class="mobile-submenu-2 hidden pl-6 bg-white">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Robes</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Chemises</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Pantalons</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Enfants -->
+                <li class="mobile-menu-item">
+                  <a
+                    href="#"
+                    class="flex items-center justify-between px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+                  >
+                    Enfants
+                    <svg
+                      class="w-3 h-3 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </a>
+                  <ul class="mobile-submenu-2 hidden pl-6 bg-white">
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Garçons</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Filles</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        href="#"
+                        class="block px-4 py-1 text-gray-400 text-xs font-normal transition-all duration-300 hover:text-purple-500 hover:bg-purple-50"
+                        >Bébés</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <!-- Catégories mobile -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-between px-4 py-3 text-gray-700 font-semibold transition-all duration-300 rounded-md hover:text-purple-500 hover:bg-purple-100 cursor-pointer"
+              >
+                Catégories
+                <svg
+                  class="w-4 h-4 transition-transform duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </a>
+              <ul class="mobile-submenu hidden pl-6 bg-purple-50">
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Électronique</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Accessoires</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Maison</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="block px-4 py-2 text-gray-600 font-medium text-sm transition-all duration-300 hover:text-purple-500 hover:bg-purple-100"
+                    >Sports</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <!-- Contact -->
+            <li class="mobile-menu-item">
+              <a
+                href="#"
+                class="flex items-center justify-start px-4 py-3 text-gray-700 no-underline font-semibold transition-all duration-300 hover:text-purple-500 hover:bg-purple-100 rounded-md"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>
+    <main>
+      <!-- Slider Section -->
+      <div class="relative w-full h-96 md:h-[500px] overflow-hidden fade-in">
+        <!-- Slides -->
+        <div
+          id="slider"
+          class="flex transition-transform duration-700 ease-in-out h-full"
+        >
+          <!-- Slide 1 -->
+          <div class="min-w-full h-full relative">
+            <img
+              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&h=500&fit=crop"
+              alt="Slide 1"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
+            >
+              <div class="text-center text-white px-4">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">
+                  Collection Printemps
+                </h2>
+                <p class="text-xl md:text-2xl mb-6">Découvrez nos nouveautés</p>
+                <button
+                  class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold btn-hover shadow-xl"
+                >
+                  Acheter maintenant
+                </button>
+              </div>
+            </div>
+          </div>
 
-    <!-- Slider Section -->
-    <div class="relative w-full h-96 md:h-[500px] overflow-hidden fade-in">
-      <!-- Slides -->
-      <div
-        id="slider"
-        class="flex transition-transform duration-700 ease-in-out h-full"
-      >
-        <!-- Slide 1 -->
-        <div class="min-w-full h-full relative">
-          <img
-            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&h=500&fit=crop"
-            alt="Slide 1"
-            class="w-full h-full object-cover"
-          />
-          <div
-            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
-          >
-            <div class="text-center text-white px-4">
-              <h2 class="text-4xl md:text-6xl font-bold mb-4">
-                Collection Printemps
-              </h2>
-              <p class="text-xl md:text-2xl mb-6">Découvrez nos nouveautés</p>
-              <button
-                class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold btn-hover shadow-xl"
-              >
-                Acheter maintenant
-              </button>
+          <!-- Slide 2 -->
+          <div class="min-w-full h-full relative">
+            <img
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=500&fit=crop"
+              alt="Slide 2"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
+            >
+              <div class="text-center text-white px-4">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">
+                  Offres Spéciales
+                </h2>
+                <p class="text-xl md:text-2xl mb-6">
+                  Jusqu'à -50% sur une sélection
+                </p>
+                <button
+                  class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold btn-hover shadow-xl"
+                >
+                  Voir les offres
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="min-w-full h-full relative">
+            <img
+              src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&h=500&fit=crop"
+              alt="Slide 3"
+              class="w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
+            >
+              <div class="text-center text-white px-4">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4">
+                  Tendances 2024
+                </h2>
+                <p class="text-xl md:text-2xl mb-6">
+                  Les must-have de la saison
+                </p>
+                <button
+                  class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold btn-hover shadow-xl"
+                >
+                  Découvrir
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Slide 2 -->
-        <div class="min-w-full h-full relative">
-          <img
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&h=500&fit=crop"
-            alt="Slide 2"
-            class="w-full h-full object-cover"
-          />
-          <div
-            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
+        <!-- Boutons de navigation -->
+        <button
+          id="prevSlide"
+          class="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 p-3 rounded-full shadow-lg transition duration-300 z-10"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
           >
-            <div class="text-center text-white px-4">
-              <h2 class="text-4xl md:text-6xl font-bold mb-4">
-                Offres Spéciales
-              </h2>
-              <p class="text-xl md:text-2xl mb-6">
-                Jusqu'à -50% sur une sélection
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            ></path>
+          </svg>
+        </button>
+        <button
+          id="nextSlide"
+          class="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 p-3 rounded-full shadow-lg transition duration-300 z-10"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+
+        <!-- Indicateurs -->
+        <div
+          class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10"
+        >
+          <button
+            class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-60 hover:bg-opacity-100 transition duration-300"
+          ></button>
+          <button
+            class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-60 hover:bg-opacity-100 transition duration-300"
+          ></button>
+          <button
+            class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-60 hover:bg-opacity-100 transition duration-300"
+          ></button>
+        </div>
+      </div>
+
+      <!-- Products Section -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+          Nos Produits
+        </h3>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Product Card 1 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-1"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop"
+                alt="Produit 1"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Montre Élégante
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                89,99 €
               </p>
-              <button
-                class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold btn-hover shadow-xl"
-              >
-                Voir les offres
-              </button>
             </div>
-          </div>
-        </div>
+          </a>
 
-        <!-- Slide 3 -->
-        <div class="min-w-full h-full relative">
-          <img
-            src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&h=500&fit=crop"
-            alt="Slide 3"
-            class="w-full h-full object-cover"
-          />
-          <div
-            class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"
+          <!-- Product Card 2 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-2"
           >
-            <div class="text-center text-white px-4">
-              <h2 class="text-4xl md:text-6xl font-bold mb-4">
-                Tendances 2024
-              </h2>
-              <p class="text-xl md:text-2xl mb-6">Les must-have de la saison</p>
-              <button
-                class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold btn-hover shadow-xl"
-              >
-                Découvrir
-              </button>
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop"
+                alt="Produit 2"
+                class="product-img w-full h-48 object-cover"
+              />
             </div>
-          </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Lunettes Solaires
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                59,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 3 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-3"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop"
+                alt="Produit 3"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Sneakers Premium
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                129,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 4 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-4"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"
+                alt="Produit 4"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Sac à Dos Urbain
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                79,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 5 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-5"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop"
+                alt="Produit 5"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Casque Audio Pro
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                199,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 6 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-6"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=400&fit=crop"
+                alt="Produit 6"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Portefeuille Cuir
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                49,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 7 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-1"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop"
+                alt="Produit 7"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Appareil Photo
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                599,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 8 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-2"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&h=400&fit=crop"
+                alt="Produit 8"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Bracelet Design
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                39,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 9 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-3"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=400&fit=crop"
+                alt="Produit 9"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Livre Design
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                24,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 10 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-4"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=400&h=400&fit=crop"
+                alt="Produit 10"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Gourde Isotherme
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                34,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 11 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-5"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1588099768523-f4e6a5679d88?w=400&h=400&fit=crop"
+                alt="Produit 11"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Plante Déco
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                19,99 €
+              </p>
+            </div>
+          </a>
+
+          <!-- Product Card 12 -->
+          <a
+            href="./show.html"
+            class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-6"
+          >
+            <div class="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop"
+                alt="Produit 12"
+                class="product-img w-full h-48 object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <h4 class="font-semibold text-gray-800 mb-2 truncate">
+                Parfum Luxe
+              </h4>
+              <p class="text-purple-600 font-bold text-lg text-center">
+                89,99 €
+              </p>
+            </div>
+          </a>
         </div>
       </div>
 
-      <!-- Boutons de navigation -->
-      <button
-        id="prevSlide"
-        class="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 p-3 rounded-full shadow-lg transition duration-300 z-10"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"
-          ></path>
-        </svg>
-      </button>
-      <button
-        id="nextSlide"
-        class="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-80 hover:bg-opacity-100 text-gray-800 p-3 rounded-full shadow-lg transition duration-300 z-10"
-      >
-        <svg
-          class="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </svg>
-      </button>
-
-      <!-- Indicateurs -->
-      <div
-        class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10"
-      >
-        <button
-          class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-60 hover:bg-opacity-100 transition duration-300"
-        ></button>
-        <button
-          class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-60 hover:bg-opacity-100 transition duration-300"
-        ></button>
-        <button
-          class="slider-dot w-3 h-3 rounded-full bg-white bg-opacity-60 hover:bg-opacity-100 transition duration-300"
-        ></button>
-      </div>
-    </div>
-
-    <!-- Products Section -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h3 class="text-3xl font-bold text-gray-800 mb-8 text-center">
-        Nos Produits
-      </h3>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <!-- Product Card 1 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-1"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=400&fit=crop"
-              alt="Produit 1"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Montre Élégante
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">89,99 €</p>
-          </div>
+      <!-- Footer -->
+      <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p class="text-gray-300">
+            &copy; 2024 ShopStyle. Tous droits réservés.
+          </p>
         </div>
-
-        <!-- Product Card 2 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-2"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop"
-              alt="Produit 2"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Lunettes Solaires
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">59,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 3 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-3"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=400&fit=crop"
-              alt="Produit 3"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Sneakers Premium
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">129,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 4 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-4"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"
-              alt="Produit 4"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Sac à Dos Urbain
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">79,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 5 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-5"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop"
-              alt="Produit 5"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Casque Audio Pro
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">199,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 6 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-6"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=400&fit=crop"
-              alt="Produit 6"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Portefeuille Cuir
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">49,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 7 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-1"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop"
-              alt="Produit 7"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Appareil Photo
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">599,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 8 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-2"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&h=400&fit=crop"
-              alt="Produit 8"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Bracelet Design
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">39,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 9 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-3"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=400&h=400&fit=crop"
-              alt="Produit 9"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Livre Design
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">24,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 10 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-4"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=400&h=400&fit=crop"
-              alt="Produit 10"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Gourde Isotherme
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">34,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 11 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-5"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1588099768523-f4e6a5679d88?w=400&h=400&fit=crop"
-              alt="Produit 11"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Plante Déco
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">19,99 €</p>
-          </div>
-        </div>
-
-        <!-- Product Card 12 -->
-        <div
-          class="product-card bg-white rounded-xl shadow-lg overflow-hidden fade-in card-delay-6"
-        >
-          <div class="overflow-hidden">
-            <img
-              src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400&h=400&fit=crop"
-              alt="Produit 12"
-              class="product-img w-full h-48 object-cover"
-            />
-          </div>
-          <div class="p-4">
-            <h4 class="font-semibold text-gray-800 mb-2 truncate">
-              Parfum Luxe
-            </h4>
-            <p class="text-purple-600 font-bold text-lg text-center">89,99 €</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-gray-300">
-          &copy; 2024 ShopStyle. Tous droits réservés.
-        </p>
-      </div>
-    </footer>
+      </footer>
+    </main>
 
     <script>
-      // Menu mobile toggle avec animation
-      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-      const mobileMenu = document.getElementById("mobile-menu");
-      let isMenuOpen = false;
-
-      function closeMenu() {
-        if (isMenuOpen) {
-          mobileMenu.classList.remove("menu-enter");
-          mobileMenu.classList.add("menu-exit");
-
-          setTimeout(() => {
-            mobileMenu.classList.add("hidden");
-            mobileMenu.classList.remove("menu-exit");
-          }, 300);
-
-          isMenuOpen = false;
-        }
-      }
-
-      function openMenu() {
-        mobileMenu.classList.remove("hidden");
-        mobileMenu.classList.add("menu-enter");
-        isMenuOpen = true;
-      }
-
-      mobileMenuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (isMenuOpen) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
-      });
-
-      // Fermer le menu en cliquant à l'extérieur
-      document.addEventListener("click", (e) => {
-        if (
-          isMenuOpen &&
-          !mobileMenu.contains(e.target) &&
-          e.target !== mobileMenuBtn
-        ) {
-          closeMenu();
-        }
-      });
-
-      // Empêcher la fermeture quand on clique sur le menu
-      mobileMenu.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
-
-      // Barre de recherche
-      const searchBtn = document.getElementById("search-btn");
-      const searchBar = document.getElementById("search-bar");
-      const searchInput = document.getElementById("search-input");
-      let isSearchOpen = false;
-
-      function closeSearch() {
-        if (isSearchOpen) {
-          searchBar.classList.remove("search-enter");
-          searchBar.classList.add("search-exit");
-
-          setTimeout(() => {
-            searchBar.classList.add("hidden");
-            searchBar.classList.remove("search-exit");
-          }, 300);
-
-          isSearchOpen = false;
-        }
-      }
-
-      function openSearch() {
-        searchBar.classList.remove("hidden");
-        searchBar.classList.add("search-enter");
-        isSearchOpen = true;
-        setTimeout(() => {
-          searchInput.focus();
-        }, 100);
-      }
-
-      searchBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (isSearchOpen) {
-          closeSearch();
-        } else {
-          openSearch();
-        }
-      });
-
-      // Fermer la recherche en cliquant à l'extérieur
-      document.addEventListener("click", (e) => {
-        if (
-          isSearchOpen &&
-          !searchBar.contains(e.target) &&
-          e.target !== searchBtn
-        ) {
-          closeSearch();
-        }
-      });
-
-      // Empêcher la fermeture quand on clique dans la barre
-      searchBar.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
-
-      // Recherche avec Enter
-      searchInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          const query = searchInput.value.trim();
-          if (query) {
-            alert("Recherche pour: " + query);
-            // Ici vous pouvez ajouter votre logique de recherche
-          }
-        }
-      });
-
       // Slider
       const slider = document.getElementById("slider");
       const prevBtn = document.getElementById("prevSlide");
@@ -1382,6 +1303,101 @@
 
       // Initialisation
       updateSlider();
+
+      // Mobile menu
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileMenuItems = document.querySelectorAll(".mobile-menu-item");
+      const mobileSubItems = document.querySelectorAll(".mobile-submenu > li");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        const isHidden = mobileMenu.classList.contains("hidden");
+
+        if (isHidden) {
+          mobileMenu.classList.remove("hidden");
+          mobileMenu.classList.remove("mobile-menu-close");
+          mobileMenu.classList.add("mobile-menu-open");
+        } else {
+          mobileMenu.classList.remove("mobile-menu-open");
+          mobileMenu.classList.add("mobile-menu-close");
+          setTimeout(() => {
+            mobileMenu.classList.add("hidden");
+          }, 300);
+        }
+      });
+
+      mobileMenuItems.forEach((item) => {
+        const link = item.querySelector(":scope > a");
+        if (link) {
+          link.addEventListener("click", (e) => {
+            if (item.querySelector(".mobile-submenu")) {
+              e.preventDefault();
+              item.classList.toggle("active");
+            }
+          });
+        }
+      });
+
+      mobileSubItems.forEach((item) => {
+        const link = item.querySelector(":scope > a");
+        if (link && link.classList.contains("toggle-submenu")) {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            item.classList.toggle("active");
+          });
+        }
+      });
+
+      // Search bar
+      const searchBtn = document.getElementById("search-btn");
+      const searchBar = document.getElementById("search-bar");
+      const searchInput = document.getElementById("search-input");
+      let isSearchOpen = false;
+
+      function closeSearch() {
+        if (isSearchOpen) {
+          searchBar.classList.remove("search-enter");
+          searchBar.classList.add("search-exit");
+          setTimeout(() => {
+            searchBar.classList.add("hidden");
+            searchBar.classList.remove("search-exit");
+          }, 300);
+          isSearchOpen = false;
+        }
+      }
+
+      function openSearch() {
+        searchBar.classList.remove("hidden");
+        searchBar.classList.add("search-enter");
+        isSearchOpen = true;
+        setTimeout(() => searchInput.focus(), 100);
+      }
+
+      searchBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        isSearchOpen ? closeSearch() : openSearch();
+      });
+
+      document.addEventListener("click", (e) => {
+        if (
+          isSearchOpen &&
+          !searchBar.contains(e.target) &&
+          e.target !== searchBtn
+        ) {
+          closeSearch();
+        }
+      });
+
+      searchBar.addEventListener("click", (e) => e.stopPropagation());
+
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          const query = searchInput.value.trim();
+          if (query) {
+            alert("Recherche pour: " + query);
+          }
+        }
+      });
     </script>
   </body>
 </html>
